@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Login | {{ site.name }}{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="auth-wrap">
+            <div class="auth-side">
+                <h2>Welcome back</h2>
+                <p>Log in to manage your appointments and book new visits.</p>
+                <ul>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> See upcoming and past appointments</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Book with your preferred doctor</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Cancel or reschedule anytime</li>
+                </ul>
+            </div>
+            <div class="auth-main">
+                <h1>Patient Login</h1>
+                <p class="muted">Enter your username and password.</p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </form>
+
+                <p class="small muted" style="margin-top: 20px;">New patient? <a href="{% url 'register' %}"><strong>Create an account</strong></a></p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

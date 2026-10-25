@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Book Appointment | {{ site.name }}{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="container">
+        <h1>Book an Appointment</h1>
+        <p>Choose a doctor, pick a date and time, and tell us briefly why you are visiting.</p>
+    </div>
+</section>
+
+<section class="page-body">
+    <div class="container booking-layout">
+        <div class="form-card">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-block">Submit Appointment Request</button>
+            </form>
+        </div>
+
+        <aside class="card">
+            <h3>Before you book</h3>
+            <ul class="tip-list">
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Your request starts as <strong>Pending</strong> and is confirmed by the hospital.</li>
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Carry previous reports and prescriptions to the visit.</li>
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> You can cancel from <a href="{% url 'dashboard' %}">My Appointments</a>.</li>
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> In an emergency, call <strong>{{ site.emergency_phone }}</strong> instead of booking online.</li>
+            </ul>
+        </aside>
+    </div>
+</section>
+{% endblock %}

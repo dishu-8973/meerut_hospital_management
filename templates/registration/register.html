@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Register | {{ site.name }}{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="auth-wrap">
+            <div class="auth-side">
+                <h2>Your health, organised</h2>
+                <p>Create a free patient account and book appointments without waiting in line.</p>
+                <ul>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Free and quick registration</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Passwords are stored securely</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Only you can see your appointments</li>
+                </ul>
+            </div>
+            <div class="auth-main">
+                <h1>Patient Registration</h1>
+                <p class="muted">Fill in the details below to get started.</p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                </form>
+
+                <p class="small muted" style="margin-top: 20px;">Already registered? <a href="{% url 'login' %}"><strong>Login</strong></a></p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

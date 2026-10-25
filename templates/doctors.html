@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Our Doctors | {{ site.name }}{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="container">
+        <h1>Our Doctors</h1>
+        <p>Search by name or speciality and book with the doctor that fits your needs.</p>
+    </div>
+</section>
+
+<section class="page-body">
+    <div class="container">
+        <form class="filter-bar" method="get">
+            <input type="search" name="q" value="{{ query }}" placeholder="Search doctor or speciality" aria-label="Search">
+            <select name="specialization" aria-label="Speciality" onchange="this.form.submit()">
+                <option value="">All specialities</option>
+                {% for spec in specializations %}
+                <option value="{{ spec }}" {% if spec == selected_specialization %}selected{% endif %}>{{ spec }}</option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-primary" type="submit">Search</button>
+            {% if query or selected_specialization %}<a class="btn btn-ghost" href="{% url 'doctors' %}">Clear</a>{% endif %}
+        </form>
+
+        <div class="grid grid-3">
+            {% for doctor in doctors %}
+            <article class="card doctor-card reveal">
+                <div class="doctor-top">
+                    <div class="avatar">{{ doctor.initials }}</div>
+                    <div>
+                        <h3>{{ doctor.name }}</h3>
+                        <span class="spec">{{ doctor.specialization }}</span>
+                    </div>
+                </div>
+                <div class="doctor-body">
+                    <div class="meta">
+                        <span class="pill">{{ doctor.experience }} yrs experience</span>
+                        <span class="pill ok">Available</span>
+                    </div>
+                    <p>{{ doctor.description|default:"Experienced healthcare professional." }}</p>
+                    <a class="btn btn-primary btn-sm" href="{% url 'book_appointment' %}?doctor={{ doctor.id }}">Book Appointment</a>
+                </div>
+            </article>
+            {% empty %}
+            <div class="card empty" style="grid-column: 1 / -1;">
+                <p>Koi available doctor nahi mila. Search badal kar dekho.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

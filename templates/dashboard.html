@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}My Appointments | {{ site.name }}{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="container">
+        <h1>Welcome, {{ user.get_username }}</h1>
+        <p>Here is everything about your appointments in one place.</p>
+    </div>
+</section>
+
+<section class="page-body">
+    <div class="container">
+        <div class="stat-grid">
+            <div class="stat"><strong>{{ upcoming_count }}</strong><span>Upcoming</span></div>
+            <div class="stat"><strong>{{ completed_count }}</strong><span>Completed</span></div>
+            <div class="stat"><strong>{{ total_count }}</strong><span>Total appointments</span></div>
+        </div>
+
+        <div class="section-title">
+            <h2>My Appointments</h2>
+            <a class="btn btn-primary btn-sm" href="{% url 'book_appointment' %}">+ New appointment</a>
+        </div>
+
+        {% for appointment in appointments %}
+        <article class="card appt">
+            <div class="when">
+                <span class="d">{{ appointment.appointment_date|date:"d" }}</span>
+                <span class="m">{{ appointment.appointment_date|date:"M Y" }}</span>
+            </div>
+            <div>
+                <h3>{{ appointment.doctor.name }}</h3>
+                <p class="detail">{{ appointment.doctor.specialization }} &middot; {{ appointment.appointment_date|date:"l, h:i A" }}</p>
+                <p class="reason">{{ appointment.reason }}</p>
+            </div>
+            <div class="actions">
+                <span class="status {{ appointment.status|lower }}">{{ appointment.status }}</span>
+                {% if appointment.status == "Pending" or appointment.status == "Confirmed" %}
+                <form method="post" action="{% url 'cancel_appointment' appointment.id %}" data-confirm="Is appointment ko cancel karna hai?">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                </form>
+                {% endif %}
+            </div>
+        </article>
+        {% empty %}
+        <div class="card empty">
+            <div class="icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+            <h3>No appointments yet</h3>
+            <p>Book your first appointment with one of our doctors.</p>
+            <a class="btn btn-primary" href="{% url 'book_appointment' %}">Book Appointment</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

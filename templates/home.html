@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site.name }} | Trusted care, easy booking{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <div>
+            <span class="eyebrow"><span class="dot"></span> Now accepting online appointments</span>
+            <h1>Healthcare you can <em>trust</em>, booked in minutes.</h1>
+            <p class="lead">Experienced specialists, a calm patient experience and simple online appointments &mdash; all in one place for Meerut and nearby.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="{% url 'book_appointment' %}">Book an Appointment</a>
+                <a class="btn btn-outline-light" href="{% url 'doctors' %}">Meet Our Doctors</a>
+            </div>
+            <div class="hero-trust">
+                <div><strong>{{ doctor_count }}</strong><span>Available doctors</span></div>
+                <div><strong>{{ specialty_count }}</strong><span>Specialities</span></div>
+                <div><strong>24&times;7</strong><span>Emergency desk</span></div>
+            </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+            <div class="float-chip c1">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Verified doctors
+            </div>
+            <div class="glass-card">
+                <h4>Quick booking preview</h4>
+                {% with featured=doctors.0 %}
+                <div class="mini-doctor">
+                    <div class="avatar">{% if featured %}{{ featured.initials }}{% else %}DR{% endif %}</div>
+                    <div>
+                        <strong>{% if featured %}{{ featured.name }}{% else %}Your Doctor{% endif %}</strong>
+                        <span>{% if featured %}{{ featured.specialization }} &middot; {{ featured.experience }} yrs{% else %}Add doctors from admin{% endif %}</span>
+                    </div>
+                </div>
+                {% endwith %}
+                <div class="slots">
+                    <div class="slot">10:00 AM</div>
+                    <div class="slot on">11:30 AM</div>
+                    <div class="slot">02:00 PM</div>
+                    <div class="slot">03:30 PM</div>
+                    <div class="slot">04:15 PM</div>
+                    <div class="slot">05:00 PM</div>
+                </div>
+                <span class="btn btn-primary btn-block">Confirm appointment</span>
+            </div>
+            <div class="float-chip c2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Booking in under 2 minutes
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="kicker">Our departments</span>
+            <h2>Complete care under one roof</h2>
+            <p>From routine check-ups to specialist treatment, our departments are built around patient comfort and clear communication.</p>
+        </div>
+
+        <div class="grid grid-3">
+            <article class="card service reveal">
+                <div class="icon-box"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+                <h3>Cardiology</h3>
+                <p>Heart check-ups, blood pressure management and preventive cardiac care.</p>
+            </article>
+            <article class="card service reveal">
+                <div class="icon-box"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                <h3>Neurology</h3>
+                <p>Diagnosis and treatment for migraine, seizures and nervous-system conditions.</p>
+            </article>
+            <article class="card service reveal">
+                <div class="icon-box"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                <h3>Orthopedics</h3>
+                <p>Joint, bone and sports-injury care with a focus on faster recovery.</p>
+            </article>
+            <article class="card service reveal">
+                <div class="icon-box"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg></div>
+                <h3>Pediatrics</h3>
+                <p>Gentle, child-friendly care including vaccinations and growth monitoring.</p>
+            </article>
+            <article class="card service reveal">
+                <div class="icon-box"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+                <h3>Women's Health</h3>
+                <p>Pregnancy care, routine screening and women's wellness with privacy and respect.</p>
+            </article>
+            <article class="card service reveal">
+                <div class="icon-box"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+                <h3>Emergency Care</h3>
+                <p>Round-the-clock emergency desk so urgent help is never far away.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section alt">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="kicker">Our doctors</span>
+            <h2>Meet our specialists</h2>
+            <p>Experienced doctors who take the time to listen. Choose one and book a slot that suits you.</p>
+        </div>
+
+        <div class="grid grid-3">
+            {% for doctor in doctors %}
+            <article class="card doctor-card reveal">
+                <div class="doctor-top">
+                    <div class="avatar">{{ doctor.initials }}</div>
+                    <div>
+                        <h3>{{ doctor.name }}</h3>
+                        <span class="spec">{{ doctor.specialization }}</span>
+                    </div>
+                </div>
+                <div class="doctor-body">
+                    <div class="meta">
+                        <span class="pill">{{ doctor.experience }} yrs experience</span>
+                        <span class="pill ok">Available</span>
+                    </div>
+                    <p>{{ doctor.description|default:"Experienced healthcare professional." }}</p>
+                    <a class="btn btn-primary btn-sm" href="{% url 'book_appointment' %}?doctor={{ doctor.id }}">Book with {{ doctor.name }}</a>
+                </div>
+            </article>
+            {% empty %}
+            <div class="card">Doctors abhi add nahi kiye gaye hain. Admin panel se add karo.</div>
+            {% endfor %}
+        </div>
+
+        <p style="margin-top: 32px;"><a class="btn btn-ghost" href="{% url 'doctors' %}">View all doctors &rarr;</a></p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-head center reveal">
+            <span class="kicker">How it works</span>
+            <h2>Three simple steps</h2>
+        </div>
+        <div class="grid grid-3">
+            <div class="card reveal"><div class="step-num">1</div><h3>Create your account</h3><p class="muted">Register once with your email &mdash; it takes less than a minute.</p></div>
+            <div class="card reveal"><div class="step-num">2</div><h3>Choose a doctor</h3><p class="muted">Browse specialists, pick your doctor and select a convenient date and time.</p></div>
+            <div class="card reveal"><div class="step-num">3</div><h3>Track your visit</h3><p class="muted">See your appointment status in your dashboard and cancel anytime if plans change.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+    <div class="container">
+        <div class="cta-band reveal">
+            <div>
+                <h2>Ready to see a doctor?</h2>
+                <p>Book your appointment online &mdash; no queues, no phone calls.</p>
+            </div>
+            <a class="btn btn-light" href="{% url 'book_appointment' %}">Book Appointment Now</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
