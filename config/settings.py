@@ -16,12 +16,13 @@ SECRET_KEY = os.getenv(
     "DJANGO_SECRET_KEY",
     "dev-only-insecure-key-change-this-before-deploying",
 )
-DEBUG = os.getenv("DJANGO_DEBUG", "1") == "1"
+DEBUG = os.getenv("DJANGO_DEBUG", "0") == "1"
 ALLOWED_HOSTS = [
-    host.strip()
-    for host in os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-    if host.strip()
+    "meerut-hospital-management.onrender.com",
+    "localhost",
+    "127.0.0.1",
 ]
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
